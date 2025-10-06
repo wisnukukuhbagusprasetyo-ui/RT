@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+*{box-sizing:border-box}body{margin:0;font-family:Poppins,system-ui,Arial,sans-serif;background:#0b1220;color:#fff}
+a{color:#FFD166;text-decoration:none}
+.container{max-width:1000px;margin:0 auto;padding:24px}
+.card{background:linear-gradient(180deg,#0f172a,#0b1220);border:1px solid #24324a;border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.input{width:100%;padding:12px;border-radius:10px;border:1px solid #334155;background:#0b1220;color:#fff}
+.btn{padding:12px 16px;border:0;border-radius:10px;cursor:pointer;background:#1E3A8A;color:#fff;font-weight:600}
+.btn:hover{filter:brightness(1.08)}.row{display:grid;gap:12px}
+nav{padding:16px;border-bottom:1px solid #24324a;display:flex;gap:12px;align-items:center}
+nav a{padding:6px 10px;border-radius:8px}nav a:hover{background:#111827}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#1E3A8A;border:1px solid #2543a6}
+.gold{color:#FFD166}
+.table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.table th,.table td{padding:10px 12px;border-bottom:1px solid #24324a}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:720px){.row2{grid-template-columns:1fr}}

@@ -1,0 +1,5 @@
+import { cookies } from 'next/headers';import { adminAuth } from '@/lib/firebaseAdmin';
+import CrudPengumuman from '@/app/components/CrudPengumuman';
+import CrudKas from '@/app/components/CrudKas';
+export default async function Page(){const cookieStore=await cookies();const sc=cookieStore.get(process.env.SESSION_COOKIE_NAME||'rt_session')?.value;let user:any=null;if(sc){try{user=await adminAuth.verifySessionCookie(sc,true);}catch{}}if(!user){return(<main className='container'><div className='card' style={{marginTop:16}}><h2>Butuh Login</h2><p>Silakan <a href='/(auth)/login'>login</a> terlebih dahulu.</p></div></main>);}
+return(<main className='container'><nav><a href='/'>← Beranda</a><span style={{flex:1}}/><form action='/api/sessionLogout' method='post'><button className='btn' type='submit'>Keluar</button></form></nav><section className='card' style={{marginTop:16}}><h2>Dashboard RT</h2><p>Kelola pengumuman & iuran RT.</p></section><CrudPengumuman canWrite={true}/><CrudKas collectionName='iuran_rt' canWrite={true}/></main>);}

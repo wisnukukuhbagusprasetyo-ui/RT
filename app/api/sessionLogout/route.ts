@@ -1,0 +1,1 @@
+import { NextResponse } from 'next/server';export async function POST(){const res=NextResponse.redirect(new URL('/',process.env.NEXT_PUBLIC_BASE_URL||'http://localhost:3000'));res.cookies.set(process.env.SESSION_COOKIE_NAME||'rt_session','',{httpOnly:true,secure:process.env.SESSION_COOKIE_SECURE==='true',maxAge:0,sameSite:'lax',path:'/'});return res;}

@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() { return request.auth != null; }
+    function isRT() { return isSignedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'rt'; }
+    function isPKK() { return isSignedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'pkk'; }
+    function isKarang() { return isSignedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'karang'; }
+
+    match /users/{uid} {
+      allow read, update, delete: if isSignedIn() && request.auth.uid == uid;
+      allow create: if isSignedIn();
+    }
+
+    // Pengumuman: read all, only RT can write
+    match /pengumuman/{doc} {
+      allow read: if true;
+      allow create, update, delete: if isRT();
+    }
+
+    // Iuran RT: RT only
+    match /iuran_rt/{doc} {
+      allow read, write: if isRT();
+    }
+
+    // PKK collections
+    match /agenda_pkk/{doc} {
+      allow read: if true;
+      allow write: if isPKK();
+    }
+    match /kas_pkk/{doc} {
+      allow read: if isPKK() || isRT();
+      allow write: if isPKK();
+    }
+
+    // Karang Taruna collections
+    match /agenda_karang/{doc} {
+      allow read: if true;
+      allow write: if isKarang();
+    }
+    match /kas_karang/{doc} {
+      allow read: if isKarang() || isRT();
+      allow write: if isKarang();
+    }
+  }
+}
